@@ -1,6 +1,5 @@
-cat <<-'JENKINSFILE' > Jenkinsfile
 pipeline {
-  agent any 
+  agent any
   stages {
     stage('build') {
       steps {
@@ -9,9 +8,13 @@ pipeline {
     }
     stage('test') {
       steps {
-        sh 'python test.py'
-      }   
+        sh 'python3 test.py'
+      }
+      post {
+        always {
+          junit 'test-reports/*.xml'
+        }
+      }    
     }
   }
 }
-JENKINSFILE
